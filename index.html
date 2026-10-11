@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>0 to Shipped — Resume Parser</title>
+  <link rel="stylesheet" href="styles.css" />
+  <!-- pdf.js: reads the PDF entirely in the browser, no server needed -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+</head>
+<body>
+  <main class="page">
+    <header class="hero">
+      <span class="badge">0 to Shipped · Resume Parser</span>
+      <h1>Upload a resume.<br /><span class="grad">Get a score in seconds.</span></h1>
+      <p class="sub">Drop a PDF and this parser reads it right here in your browser — no uploads, no backend.</p>
+    </header>
+
+    <section class="card">
+      <div id="dropzone" class="dropzone">
+        <input id="fileInput" type="file" accept="application/pdf,.pdf" hidden />
+        <p class="dz-title">Drop your resume PDF here</p>
+        <p class="dz-hint">or <span class="link">choose a file</span> — parsed locally, never uploaded</p>
+      </div>
+      <div class="actions">
+        <span id="fileName" class="file-name"></span>
+        <button id="analyzeBtn" class="btn primary" disabled>Analyze resume</button>
+        <button id="resetBtn" class="btn ghost" hidden>Start over</button>
+      </div>
+      <p id="errorBox" class="error" hidden></p>
+    </section>
+
+    <section id="results" class="card results" hidden>
+      <div class="score-row">
+        <div class="ring" role="img" aria-label="Resume score">
+          <svg viewBox="0 0 120 120">
+            <defs>
+              <linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#6c8cff" />
+                <stop offset="1" stop-color="#22d3ee" />
+              </linearGradient>
+            </defs>
+            <circle class="track" cx="60" cy="60" r="54" />
+            <circle id="scoreRing" class="fill" cx="60" cy="60" r="54" />
+          </svg>
+          <div class="ring-center">
+            <span id="scoreValue">0</span><small>/100</small>
+          </div>
+        </div>
+        <div class="score-side">
+          <h2>Resume score</h2>
+          <p id="verdict" class="verdict"></p>
+          <p id="parsedNote" class="muted"></p>
+        </div>
+      </div>
+      <div class="columns">
+        <div class="col">
+          <h3><span class="dot good"></span>Skills present</h3>
+          <div id="presentList" class="chip-groups"></div>
+        </div>
+        <div class="col">
+          <h3><span class="dot bad"></span>Skills missing</h3>
+          <div id="missingList" class="chips missing"></div>
+        </div>
+      </div>
+      <div class="breakdown">
+        <h3>Category breakdown</h3>
+        <div id="groupBars"></div>
+      </div>
+    </section>
+
+    <footer class="foot">
+      <p><strong>0 to Shipped</strong> — a mock resume parser. The PDF is read with pdf.js and scored against a keyword dictionary, all client-side. No data ever leaves this page.</p>
+    </footer>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
